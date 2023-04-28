@@ -3,7 +3,7 @@
 <html><head><title>Swarm Web Builder</title></head><body><script>window.onload = () => {setInterval(()=>{
 			const dependencies = document.querySelector("#input").value.split("\n");
 			document.querySelector("#output").value = "void ((()=>{window.swarm = " + (function(){let o = '';o += "(()=>{";o += "const b = (()=>{return { twelve:12 };})();";if (dependencies.includes("swarm.eleven") || dependencies.includes("swarm.thirteen")) {o += `b.eleven = ${(function(){let o = '';o += "(()=>{";o += "const b = (()=>{return 11;})();";o += "return b;";o += "})()";return o;})()};`;}if (dependencies.includes("swarm.thirteen")) {o += `b.thirteen = ${(function(){let o = '';o += "(()=>{";o += "const b = (()=>{return { getThirteen() { return swarm.eleven+2; } };})();";o += "return b;";o += "})()";return o;})()};`;}o += "return b;";o += "})()";return o;})() + "})())";
-		})}</script><h1>Swarm Web Builder</h1><h2>Input</h2><textarea id="input">
+		})}</script><h1>Swarm Web Builder</h1><h2>Dependencies</h2><textarea id="input">
 swarm
 swarm.ui
-</textarea><h2>Output</h2><textarea id="output"></textarea></body></html>
+</textarea><h2>Generated output</h2><textarea id="output"></textarea></body></html>
