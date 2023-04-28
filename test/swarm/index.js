@@ -1,0 +1,3 @@
+return {
+	twelve:12
+};
