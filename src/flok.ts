@@ -137,7 +137,7 @@ class WebBuilderBuilder {
 		output += `window.onload = () => {setInterval(()=>{
 			const dependencies = document.querySelector("#input").value.split("\\n");
 			const text = "void ((function(){" + ${this.generateGenerator(dir,"dependencies")} + ";" + document.querySelector("#src").value +"})())";
-			if (text == document.querySelector("#output").value) {
+			if (text != document.querySelector("#output").value) {
 				document.querySelector("#output").value = text;
 			}
 		})}`;
