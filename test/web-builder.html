@@ -2,7 +2,7 @@
 <!--Although it looks tempting to edit this, don't, for your own sake-->
 <html><head><title>Swarm Web Builder</title></head><body><script>window.onload = () => {setInterval(()=>{
 			const dependencies = document.querySelector("#input").value.split("\n");
-			document.querySelector("#output").value = "void ((()=>{window.swarm = " + (function(){let o = '';o += "(()=>{";o += "const b = (()=>{return { twelve:12 };})();";if (dependencies.includes("swarm.eleven") || dependencies.includes("swarm.thirteen")) {o += `b.eleven = ${(function(){let o = '';o += "(()=>{";o += "const b = (()=>{return 11;})();";o += "return b;";o += "})()";return o;})()};`;}if (dependencies.includes("swarm.thirteen")) {o += `b.thirteen = ${(function(){let o = '';o += "(()=>{";o += "const b = (()=>{return { getThirteen() { return swarm.eleven+2; } };})();";o += "return b;";o += "})()";return o;})()};`;}o += "return b;";o += "})()";return o;})() + "})())";
+			document.querySelector("#output").value = "void ((()=>{window.swarm = " + (function(){let o = '';o += "(()=>{";o += "const b = (()=>{return { twelve:12 };})();";if (dependencies.includes("swarm.thirteen")) {o += `b.thirteen = ${(function(){let o = '';o += "(()=>{";o += "const b = (()=>{return { getThirteen() { return swarm.eleven+2; } };})();";o += "return b;";o += "})()";return o;})()};`;}if (dependencies.includes("swarm.thirteen") || dependencies.includes("swarm.eleven")) {o += `b.eleven = ${(function(){let o = '';o += "(()=>{";o += "const b = (()=>{return 11;})();";o += "return b;";o += "})()";return o;})()};`;}o += "return b;";o += "})()";return o;})() + "})())";
 		})}</script><h1>Swarm Web Builder</h1><h2>Dependencies</h2><textarea id="input">
 swarm
 swarm.ui
