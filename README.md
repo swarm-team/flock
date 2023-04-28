@@ -24,3 +24,5 @@ return {
 	onSwarmSetup
 }
 ```
+
+To run flock as a cli tool run `flok` as *someone* decided to name the build tool an already existing command.
