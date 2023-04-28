@@ -1,9 +1,4 @@
 import { Language, minify } from "https://deno.land/x/minifier/mod.ts";
-import {
-	getWidth,
-  } from 'https://deno.land/x/terminal_size/mod.ts';
-
-console.log(`FL${'O'.repeat(getWidth()-4)}CK`);
 
 type FlockDirectory = {
 	children:Record<string,FlockDirectory>;
