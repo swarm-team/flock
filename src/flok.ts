@@ -136,9 +136,10 @@ class WebBuilderBuilder {
 		output += '<script>';
 		output += `window.onload = () => {setInterval(()=>{
 			const dependencies = document.querySelector("#input").value.split("\\n");
-			document.querySelector("#output").value = "void ((function(){";
-			document.querySelector("#output").value += ${this.generateGenerator(dir,"dependencies")} + ";" + document.querySelector("#src").value;
-			document.querySelector("#output").value += "})())";
+			const text = "void ((function(){" + ${this.generateGenerator(dir,"dependencies")} + ";" + document.querySelector("#src").value +"})())";
+			if (text == document.querySelector("#output").value) {
+				document.querySelector("#output").value = text;
+			}
 		})}`;
 		output += '</script>';
 
