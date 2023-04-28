@@ -136,13 +136,17 @@ class WebBuilderBuilder {
 		output += '<script>';
 		output += `window.onload = () => {setInterval(()=>{
 			const dependencies = document.querySelector("#input").value.split("\\n");
-			document.querySelector("#output").value = ${this.generateGenerator(dir,"dependencies")};
+			document.querySelector("#output").value = "void ((function(){";
+			document.querySelector("#output").value += ${this.generateGenerator(dir,"dependencies")} + ";" + document.querySelector("#src").value;
+			document.querySelector("#output").value = "})())";
 		})}`;
 		output += '</script>';
 
 		output += `<h1>Swarm Web Builder</h1>`;
 		output += `<h2>Dependencies</h2>`;
 		output += `<textarea id="input">\nswarm\nswarm.ui\n</textarea>`;
+		output += `<h2>Your code</h2>`;
+		output += `<textarea id="src">alert("this is my really cool app")</textarea>`;
 		output += `<h2>Generated output</h2>`;
 		output += `<textarea id="output"></textarea>`;
 		output += `</body>`;
