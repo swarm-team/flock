@@ -25,4 +25,4 @@ return {
 }
 ```
 
-To run flock as a cli tool run `flok` as *someone* decided to name the build tool an already existing command.
+To run flock as a cli tool run `flok` as *someone* decided to name the build tool an already existing command, but at least it's not called `swarmup`. :^)
