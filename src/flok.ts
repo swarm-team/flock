@@ -138,7 +138,7 @@ class WebBuilderBuilder {
 			const dependencies = document.querySelector("#input").value.split("\\n");
 			document.querySelector("#output").value = "void ((function(){";
 			document.querySelector("#output").value += ${this.generateGenerator(dir,"dependencies")} + ";" + document.querySelector("#src").value;
-			document.querySelector("#output").value = "})())";
+			document.querySelector("#output").value += "})())";
 		})}`;
 		output += '</script>';
 
