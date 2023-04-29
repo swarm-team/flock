@@ -64,7 +64,7 @@ class WebBuilderBuilder {
 		output += `<h1>Swarm Web Builder</h1>`;
 		output += `<h2>Dependencies</h2>`;
 		output += `<textarea id="input">\nswarm\nswarm.ui\n</textarea>`;
-		output += `<h2>Your code</h2>`;
+		output += `<h2>Your code (make sure to await swarm.init())</h2>`;
 		output += `<textarea id="src">alert("this is my really cool app")</textarea>`;
 		output += `<h2>Generated output</h2>`;
 		output += `<p id="output"></p>`;
