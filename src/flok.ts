@@ -50,8 +50,12 @@ class WebBuilderBuilder {
 				const dependencies = document.querySelector("#input").value.split("\\n");
 				const userSource = document.querySelector("#src").value;
 
-				const output = build(${JSON.stringify(this.converter.convertDirectory(dir))},dependencies,userSource);
+				let output = build(${JSON.stringify(this.converter.convertDirectory(dir))},dependencies,userSource);
 			
+				if (!userSource.includes("await swarm.init")) {
+					output = "Please await swarm.init() somewhere in your code.";
+				}
+
 				const outputPanel = document.querySelector("#output");
 
 				if (outputPanel.innerText != output) {

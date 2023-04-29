@@ -47,8 +47,12 @@
 				const dependencies = document.querySelector("#input").value.split("\n");
 				const userSource = document.querySelector("#src").value;
 
-				const output = build({"dependents":["swarm","swarm.eleven","swarm.thirteen"],"javascript":"return { twelve:12 };","subNodes":{"eleven":{"dependents":["swarm.eleven","swarm.thirteen"],"javascript":"return 11;","subNodes":{},"name":"swarm.eleven"},"thirteen":{"dependents":["swarm.thirteen"],"javascript":"return { getThirteen() { return swarm.eleven+2; } };","subNodes":{},"name":"swarm.thirteen"}},"name":"swarm"},dependencies,userSource);
+				let output = build({"dependents":["swarm","swarm.eleven","swarm.thirteen"],"subNodes":{"eleven":{"dependents":["swarm.eleven","swarm.thirteen"],"subNodes":{},"name":"swarm.eleven"},"thirteen":{"dependents":["swarm.thirteen"],"subNodes":{},"name":"swarm.thirteen"}},"name":"swarm"},dependencies,userSource);
 			
+				if (!userSource.includes("await swarm.init")) {
+					output = "Please await swarm.init() somewhere in your code.";
+				}
+
 				const outputPanel = document.querySelector("#output");
 
 				if (outputPanel.innerText != output) {
