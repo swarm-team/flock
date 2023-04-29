@@ -47,7 +47,7 @@
 				const dependencies = document.querySelector("#input").value.split("\n");
 				const userSource = document.querySelector("#src").value;
 
-				let output = build({"dependents":["swarm","swarm.eleven","swarm.thirteen"],"subNodes":{"eleven":{"dependents":["swarm.eleven","swarm.thirteen"],"subNodes":{},"name":"swarm.eleven"},"thirteen":{"dependents":["swarm.thirteen"],"subNodes":{},"name":"swarm.thirteen"}},"name":"swarm"},dependencies,userSource);
+				let output = build({"dependents":["swarm","swarm.thirteen","swarm.eleven"],"javascript":"const head=document.head||document.getElementsByTagName(\"head\")[0],style=document.createElement(\"style\");return style.appendChild(document.createTextNode(\"body{background-color:#3498db;color:#fff}h1{font-size:2rem;margin-bottom:1rem}p{font-size:1.5rem;line-height:1.5}\")),style.type=\"text/css\",head.appendChild(style),{twelve:12};","subNodes":{"thirteen":{"dependents":["swarm.thirteen"],"javascript":"return{getThirteen(){return swarm.eleven+2}};","subNodes":{},"name":"swarm.thirteen"},"eleven":{"dependents":["swarm.thirteen","swarm.eleven"],"javascript":"return 11;","subNodes":{},"name":"swarm.eleven"}},"name":"swarm"},dependencies,userSource);
 			
 				if (!userSource.includes("await swarm.init")) {
 					output = "Please await swarm.init() somewhere in your code.";
@@ -62,4 +62,4 @@
 		}</script><h1>Swarm Web Builder</h1><h2>Dependencies</h2><textarea id="input">
 swarm
 swarm.ui
-</textarea><h2>Your code (make sure to await swarm.init())</h2><textarea id="src">alert("this is my really cool app")</textarea><h2>Generated output</h2><p id="output"></p></body></html>
+</textarea><h2>Your code (make sure to await swarm.init())</h2><textarea id="src">try { await swarm.init(); alert("success!") } catch (err) { alert(JSON.stringify(err) }</textarea><h2>Generated output</h2><p id="output"></p></body></html>
