@@ -22,9 +22,13 @@ export class ModuleTreeConverter {
 	}
 
 	private createDirectory(dir:FlockDirectory, moduleName:string): ModuleTreeNode {
+		let srcProcessed = dir.src.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "");
+		// Above regex just removes comments, for some reason minify does not do this.
+		srcProcessed = minify(Language.JS,srcProcessed);
+		
 		const output: ModuleTreeNode = {
 			dependents:this.dependencyResolver.modules[moduleName].dependents,
-			javascript: minify(Language.JS,dir.src),
+			javascript: srcProcessed,
 			subNodes: {},
 			name: moduleName
 		};
