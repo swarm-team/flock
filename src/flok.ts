@@ -3,7 +3,7 @@ import { build } from './builder.ts';
 import { ModuleTreeConverter } from './module-tree.ts';
 
 class WebBuilderBuilder {
-	converter:ModuleTreeConverter = new ModuleTreeConverter();
+	converter: ModuleTreeConverter = new ModuleTreeConverter();
 
 	compile(dir: FlockDirectory) {
 		let output = ``;
@@ -19,7 +19,7 @@ class WebBuilderBuilder {
 		output += `Swarm Web Builder`;
 		output += `</title>`;
 
-		output += `<style>`
+		output += `<style>`;
 		output += `body {
 			color: #eeeeee;
 			background-color: #111111;
@@ -34,8 +34,8 @@ class WebBuilderBuilder {
 			border: 2px solid rgba(255,255,255,0.1);
 			border-radius: 5px;
 			box-sizing: border-box;
-		}`
-		output += `</style>`
+		}`;
+		output += `</style>`;
 
 		output += `</head>`;
 
@@ -50,7 +50,9 @@ class WebBuilderBuilder {
 				const dependencies = document.querySelector("#input").value.split("\\n");
 				const userSource = document.querySelector("#src").value;
 
-				let output = build(${JSON.stringify(this.converter.convertDirectory(dir))},dependencies,userSource);
+				let output = build(${JSON.stringify(
+					this.converter.convertDirectory(dir),
+				)},dependencies,userSource);
 			
 				if (!userSource.includes("await swarm.init")) {
 					output = "Please await swarm.init() somewhere in your code.";
@@ -58,8 +60,9 @@ class WebBuilderBuilder {
 
 				const outputPanel = document.querySelector("#output");
 
-				if (outputPanel.innerText != output) {
-					outputPanel.innerText = output;
+				if (outputPanel.value != output) {
+					console.log(output);
+					outputPanel.value = output;
 				}
 			});
 		}`;
@@ -69,9 +72,9 @@ class WebBuilderBuilder {
 		output += `<h2>Dependencies</h2>`;
 		output += `<textarea id="input">\nswarm\nswarm.ui\n</textarea>`;
 		output += `<h2>Your code (make sure to await swarm.init())</h2>`;
-		output += `<textarea id="src">try { await swarm.init(); alert("success!") } catch (err) { alert(JSON.stringify(err) }</textarea>`;
+		output += `<textarea id="src">try { await swarm.init(); alert("success!") } catch (err) { alert(JSON.stringify(err)) }</textarea>`;
 		output += `<h2>Generated output</h2>`;
-		output += `<p id="output"></p>`;
+		output += `<textarea id="output"></textarea>`;
 		output += `</body>`;
 
 		output += `</html>`;

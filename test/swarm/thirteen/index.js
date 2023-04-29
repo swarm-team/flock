@@ -1,5 +1,5 @@
 return {
 	getThirteen() {
-		return swarm.eleven+2;
-	}
+		return swarm.eleven + 2;
+	},
 };

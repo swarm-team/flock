@@ -1,7 +1,11 @@
-import { ModuleTreeNode } from "./module-tree.ts";
+import { ModuleTreeNode } from './module-tree.ts';
 
-export function build(root:ModuleTreeNode, included: string[], userSource:string) {
-	function shouldInclude(dependents:string[]) {
+export function build(
+	root: ModuleTreeNode,
+	included: string[],
+	userSource: string,
+) {
+	function shouldInclude(dependents: string[]) {
 		for (const dependant of dependents) {
 			if (included.includes(dependant)) {
 				return true;
@@ -10,10 +14,18 @@ export function build(root:ModuleTreeNode, included: string[], userSource:string
 		return false;
 	}
 
-	function buildModule(module:ModuleTreeNode) {
+	function buildModule(module: ModuleTreeNode) {
 		let o = '';
 
 		o += `((async()=>{`;
+
+		if (module.css) {
+			o += `const css=document.createElement("style");`;
+			o += `css.appendChild(document.createTextNode(${JSON.stringify(
+				module.css,
+			)}));`;
+			o += `document.body.appendChild(css);`;
+		}
 
 		o += `const base = await((async()=>{`;
 		o += module.javascript;
@@ -21,7 +33,9 @@ export function build(root:ModuleTreeNode, included: string[], userSource:string
 
 		for (const subModule in module.subNodes) {
 			if (shouldInclude(module.subNodes[subModule].dependents)) {
-				o += `base.${subModule} = await ${buildModule(module.subNodes[subModule])};`;
+				o += `base.${subModule} = await ${buildModule(
+					module.subNodes[subModule],
+				)};`;
 			}
 		}
 
@@ -32,5 +46,7 @@ export function build(root:ModuleTreeNode, included: string[], userSource:string
 		return o;
 	}
 
-	return `void ((async()=>{window.swarm = await ${buildModule(root)};(async ()=>{${userSource}})()})())`;
+	return `void ((async()=>{window.swarm = await ${buildModule(
+		root,
+	)};(async ()=>{${userSource}})()})())`;
 }

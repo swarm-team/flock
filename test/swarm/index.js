@@ -1,3 +1,3 @@
 return {
-	twelve:12
+	twelve: 12,
 };

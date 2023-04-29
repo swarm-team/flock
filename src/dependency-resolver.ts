@@ -1,5 +1,5 @@
-import { abort } from "./abort.ts";
-import { FlockDirectory } from "./flock-directory.ts";
+import { abort } from './abort.ts';
+import { FlockDirectory } from './flock-directory.ts';
 
 export class DependencyResolver {
 	modules: Record<
