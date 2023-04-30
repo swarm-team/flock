@@ -4,7 +4,7 @@ Flock is a custom build system designed for [{swarm}](https://github.com/swarm-t
 
 Flock creates a **Web Builder** that can be used to create a {swarm} app.
 
-Flock currently uses Deno, but it **_might_** be ported to the web eventually.
+Flock currently uses [🦖 Deno](https://deno.land), but it **_might_** be ported to the web eventually.
 
 The structure that Flock expects is simple  -- different objects in the global namespace are represented by folders.
 
