@@ -1,6 +1,13 @@
 import { FlockDirectory, readFlockDirectory } from './flock-directory.ts';
 import { build } from './builder.ts';
 import { ModuleTreeConverter } from './module-tree.ts';
+import { delay } from "https://deno.land/std@0.185.0/async/delay.ts";
+import { isNerdFont } from './nerd.ts';
+
+if (!isNerdFont) {
+	console.log("For best look, install a nerd font and set env NERD_FONT to YES");
+	await delay(3000);
+}
 
 class WebBuilderBuilder {
 	converter: ModuleTreeConverter = new ModuleTreeConverter();
@@ -34,6 +41,8 @@ class WebBuilderBuilder {
 			border: 2px solid rgba(255,255,255,0.1);
 			border-radius: 5px;
 			box-sizing: border-box;
+			resize: vertical;
+			overflow: hidden;
 		}`;
 		output += `</style>`;
 
@@ -41,18 +50,24 @@ class WebBuilderBuilder {
 
 		output += `<body>`;
 
-		output += '<script>';
+		output += '<script type="module">';
 		output += `
+		import { minify } from 'https://esm.sh/terser';
+		
 		${build.toString()};
 
 		window.onload = () => {
-			setInterval(()=>{
+			setInterval(async ()=>{
 				const dependencies = document.querySelector("#input").value.split("\\n");
 				const userSource = document.querySelector("#src").value;
 
-				let output = build(${JSON.stringify(
+				let output = await minify(build(${JSON.stringify(
 					this.converter.convertDirectory(dir),
-				)},dependencies,userSource);
+				)},dependencies,userSource),{ mangle: {
+					properties: true,
+				}, compress: {booleans_as_integers:true,expression:true,passes:4}});
+
+				output = output.code || output.error;
 			
 				if (!userSource.includes("await swarm.init")) {
 					output = "Please await swarm.init() somewhere in your code.";
@@ -70,11 +85,11 @@ class WebBuilderBuilder {
 		}`;
 		output += '</script>';
 
-		output += `<h1>Swarm Web Builder</h1>`;
+		output += `<h1>Swarm<br>Web<br>Builder</h1>`;
 		output += `<h2>Dependencies</h2>`;
-		output += `<textarea id="input">\nswarm\nswarm.ui\n</textarea>`;
+		output += `<textarea  id="input">\nswarm\nswarm.ui\n</textarea>`;
 		output += `<h2>Your code (make sure to await swarm.init())</h2>`;
-		output += `<textarea id="src">
+		output += `<textarea  id="src">
 try { 
 	await swarm.init(); 
 } catch {} 
@@ -86,7 +101,7 @@ document.body.appendChild(
 	]));
 </textarea>`;
 		output += `<h2>Generated output</h2>`;
-		output += `<textarea id="output"></textarea>`;
+		output += `<textarea  id="output"></textarea>`;
 		output += `<a id="quicktest">Quick Test</a>`;
 		output += `</body>`;
 

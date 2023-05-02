@@ -2,6 +2,7 @@ import { abort } from './abort.ts';
 import { DependencyResolver } from './dependency-resolver.ts';
 import { FlockDirectory } from './flock-directory.ts';
 import Uglify from 'npm:uglify-js';
+import { file } from './formatting.ts';
 
 export type ModuleTreeNode = {
 	dependents: string[];
@@ -27,6 +28,8 @@ export class ModuleTreeConverter {
 		dir: FlockDirectory,
 		moduleName: string,
 	): ModuleTreeNode {
+		abort(`Test failure in ${file("./index.js")}\nPlease ignore`);
+
 		const minified = Uglify.minify(dir.src, {
 			mangle: false,
 			parse: {
