@@ -1,5 +1,6 @@
 import { abort } from './abort.ts';
 import { FlockDirectory } from './flock-directory.ts';
+import { file } from './formatting.ts';
 
 export class DependencyResolver {
 	modules: Record<
@@ -7,12 +8,13 @@ export class DependencyResolver {
 		{
 			dependencies: string[];
 			dependents: string[];
+			dependenciesPath: string;
 		}
 	> = {};
 
 	depends(module: string, dependsOn: string) {
 		if (!this.modules[dependsOn]) {
-			abort(`${module} depends on ${dependsOn}, which doesn't exist`);
+			abort(`${file(this.modules[module].dependenciesPath)} depends on ${dependsOn}, which doesn't exist`);
 		}
 		if (!this.modules[dependsOn].dependents.includes(module)) {
 			this.modules[dependsOn].dependents.push(module);
@@ -23,8 +25,10 @@ export class DependencyResolver {
 		}
 	}
 
-	resolveDependencies(dir: FlockDirectory) {
-		this.addModules(dir, 'swarm');
+	resolveDependencies(modules:{dir: FlockDirectory,name:string}[]) {
+		for (const module of modules) {
+			this.addModules(module.dir, module.name);
+		}
 
 		for (const module in this.modules) {
 			const modulePathParts = module.split('.');
@@ -43,6 +47,7 @@ export class DependencyResolver {
 		this.modules[path] = {
 			dependents: [],
 			dependencies: dir.dependencies,
+			dependenciesPath: dir.depPath
 		};
 		for (const sub in dir.children) {
 			this.addModules(dir.children[sub], `${path}.${sub}`);

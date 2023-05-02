@@ -14,3 +14,15 @@ export function file(pth:string) {
 	const name = path.basename(pth);
 	return link(colors.blue(start) + colors.inverse(colors.bgWhite(colors.blue(file + " " + name))) + colors.blue(end),path.toFileUrl(path.resolve(pth)).toString());
 }
+
+export function dir(pth:string) {
+	if (!isNerdFont) {
+		return pth;
+	}
+	const start = ``
+	const end = ``;
+	const file = ``;
+	const folder = ``;
+	const name = path.basename(pth);
+	return link(colors.blue(start) + colors.inverse(colors.bgWhite(colors.blue(folder + " " + name))) + colors.blue(end),path.toFileUrl(path.resolve(pth)).toString());
+}

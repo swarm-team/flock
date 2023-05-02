@@ -19,17 +19,15 @@ export class ModuleTreeConverter {
 		this.dependencyResolver = new DependencyResolver();
 	}
 
-	convertDirectory(dir: FlockDirectory) {
-		this.dependencyResolver.resolveDependencies(dir);
-		return this.createDirectory(dir, 'swarm');
+	convertDirectory(mods:{dir: FlockDirectory,name:string}[]) {
+		this.dependencyResolver.resolveDependencies(mods);
+		return mods.map(mod => this.createDirectory(mod.dir,mod.name));
 	}
 
 	private createDirectory(
 		dir: FlockDirectory,
 		moduleName: string,
-	): ModuleTreeNode {
-		abort(`Test failure in ${file("./index.js")}\nPlease ignore`);
-
+	): {mod:ModuleTreeNode,name:string} {
 		const minified = Uglify.minify(dir.src, {
 			mangle: false,
 			parse: {
@@ -55,9 +53,12 @@ export class ModuleTreeConverter {
 			output.subNodes[subDir] = this.createDirectory(
 				dir.children[subDir],
 				`${moduleName}.${subDir}`,
-			);
+			).mod;
 		}
 
-		return output;
+		return {
+			mod:output,
+			name:moduleName
+		};
 	}
 }
