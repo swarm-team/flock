@@ -19,15 +19,15 @@ export class ModuleTreeConverter {
 		this.dependencyResolver = new DependencyResolver();
 	}
 
-	convertDirectory(mods:{dir: FlockDirectory,name:string}[]) {
+	convertDirectory(mods: { dir: FlockDirectory; name: string }[]) {
 		this.dependencyResolver.resolveDependencies(mods);
-		return mods.map(mod => this.createDirectory(mod.dir,mod.name));
+		return mods.map(mod => this.createDirectory(mod.dir, mod.name));
 	}
 
 	private createDirectory(
 		dir: FlockDirectory,
 		moduleName: string,
-	): {mod:ModuleTreeNode,name:string} {
+	): { mod: ModuleTreeNode; name: string } {
 		const minified = Uglify.minify(dir.src, {
 			mangle: false,
 			parse: {
@@ -57,8 +57,8 @@ export class ModuleTreeConverter {
 		}
 
 		return {
-			mod:output,
-			name:moduleName
+			mod: output,
+			name: moduleName,
 		};
 	}
 }

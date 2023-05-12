@@ -1,7 +1,7 @@
 import { ModuleTreeNode } from './module-tree.ts';
 
 export function build(
-	modules:{mod: ModuleTreeNode,name:string}[],
+	modules: { mod: ModuleTreeNode; name: string }[],
 	included: string[],
 	userSource: string,
 ) {
@@ -46,7 +46,10 @@ export function build(
 		return o;
 	}
 
-	return `void ((${modules.map((mod=>`async()=>{window.${mod.name} = await ${buildModule(
-		mod.mod,
-	)}`)).join(";")};(async ()=>{${userSource}})()})())`;
+	return `void ((${modules
+		.map(
+			mod =>
+				`async()=>{window.${mod.name} = await ${buildModule(mod.mod)}`,
+		)
+		.join(';')};(async ()=>{${userSource}})()})())`;
 }

@@ -16,10 +16,10 @@ export async function readFlockDirectory(path: string) {
 			children: {},
 			src: '',
 			dependencies: [],
-			depPath: path + '/deps.json'
+			depPath: path + '/deps.json',
 		};
-		console.log(`Loading ${dir(path)}`);
-		
+		console.log(`Loading ${dir(path)}\n`);
+
 		// read index.js
 		try {
 			directory.src = await Deno.readTextFile(`${path}/index.js`);
@@ -32,7 +32,11 @@ export async function readFlockDirectory(path: string) {
 				const scss = sass.compile(`${path}/index.scss`);
 				directory.css = scss.css;
 			} catch (err) {
-				abort(`Failled to parse ${file(`${path}/index.scss`)}: ${JSON.stringify(err)}`);
+				abort(
+					`Failled to parse ${file(
+						`${path}/index.scss`,
+					)}: ${JSON.stringify(err)}`,
+				);
 			}
 		} catch {
 			// guess there isnt a scss file
@@ -57,7 +61,11 @@ export async function readFlockDirectory(path: string) {
 		}
 		return directory;
 	} catch {
-		abort(`Directory ${dir(path)} doesn't exist.\nIt is likely that a module that doesn't exist is in your modules list.`);
+		abort(
+			`Directory ${dir(
+				path,
+			)} doesn't exist.\nIt is likely that a module that doesn't exist is in your modules list.`,
+		);
 		throw new Error('Unreachable but typescript doesnt know that');
 	}
 }

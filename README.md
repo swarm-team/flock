@@ -6,7 +6,7 @@ Flock creates a **Web Builder** that can be used to create a {swarm} app.
 
 Flock currently uses [🦖 Deno](https://deno.land), but it **_might_** be ported to the web eventually.
 
-The structure that Flock expects is simple  -- different objects in the global namespace are represented by folders.
+The structure that Flock expects is simple -- different objects in the global namespace are represented by folders.
 
 So for example:
 
@@ -36,10 +36,10 @@ To run flock as a cli tool run `flok` as _someone_ decided to name the build too
 
 Flock compilation consists of a few steps
 
-* Directory Hierarchy
-* Module Resolution
-* Module Hierarchy
-* Output Generation
+-   Directory Hierarchy
+-   Module Resolution
+-   Module Hierarchy
+-   Output Generation
 
 ### Directory Hierarchy
 

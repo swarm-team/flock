@@ -1,1 +1,3 @@
-export const isNerdFont = await Deno.env.get("NERD_FONT") == "YES";
+export const isNerdFont =
+	Deno.env.get('NERD_FONT')?.toLowerCase() == 'yes' ||
+	Deno.env.get('NERD_FONT')?.toLowerCase() == 'true';

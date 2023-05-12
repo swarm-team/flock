@@ -14,7 +14,11 @@ export class DependencyResolver {
 
 	depends(module: string, dependsOn: string) {
 		if (!this.modules[dependsOn]) {
-			abort(`${file(this.modules[module].dependenciesPath)} depends on ${dependsOn}, which doesn't exist`);
+			abort(
+				`${file(
+					this.modules[module].dependenciesPath,
+				)} depends on ${dependsOn}, which doesn't exist`,
+			);
 		}
 		if (!this.modules[dependsOn].dependents.includes(module)) {
 			this.modules[dependsOn].dependents.push(module);
@@ -25,7 +29,7 @@ export class DependencyResolver {
 		}
 	}
 
-	resolveDependencies(modules:{dir: FlockDirectory,name:string}[]) {
+	resolveDependencies(modules: { dir: FlockDirectory; name: string }[]) {
 		for (const module of modules) {
 			this.addModules(module.dir, module.name);
 		}
@@ -47,7 +51,7 @@ export class DependencyResolver {
 		this.modules[path] = {
 			dependents: [],
 			dependencies: dir.dependencies,
-			dependenciesPath: dir.depPath
+			dependenciesPath: dir.depPath,
 		};
 		for (const sub in dir.children) {
 			this.addModules(dir.children[sub], `${path}.${sub}`);
