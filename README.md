@@ -1,4 +1,4 @@
-# 🐦 flock
+# ![flock](./assets/logo.png)
 
 Flock is a custom build system designed for [{swarm}](https://github.com/swarm-team/swarm).
 
