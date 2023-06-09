@@ -1,5 +1,5 @@
 import { abort } from './abort.ts';
-import sass from 'npm:sass';
+import { compile } from 'npm:sass@^1.63.3';
 import { dir, file } from './formatting.ts';
 
 export type FlockDirectory = {
@@ -29,7 +29,7 @@ export async function readFlockDirectory(path: string) {
 		try {
 			await Deno.lstat(`${path}/index.scss`);
 			try {
-				const scss = sass.compile(`${path}/index.scss`);
+				const scss = compile(`${path}/index.scss`);
 				directory.css = scss.css;
 			} catch (err) {
 				abort(
