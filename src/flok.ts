@@ -70,7 +70,7 @@ class WebBuilderBuilder {
 				let output = await minify(build(${JSON.stringify(
 					this.converter.convertDirectory(mods),
 				)},dependencies,userSource),{ mangle: {
-					properties: true,
+					properties: false,
 				}, compress: {booleans_as_integers:true,expression:true,passes:4}});
 
 				output = output.code || output.error;
